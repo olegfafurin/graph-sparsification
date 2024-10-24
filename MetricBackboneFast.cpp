@@ -135,12 +135,14 @@ struct graph {
         }
 
         cout << "possibly metric edges after step 1: size " << edges1.size() << '\n';
-        // for (auto &e: edges1) {
-        //     cout << e.u << " " << e.v << " " << e.w << endl;
-        // }
+        for (auto &e: edges1) {
+            if (e.u == 169) {
+                cout << e.u << " " << e.v << " " << e.w << endl;
+            }
+        }
         cout << '\n';
 
-        vector<priority_queue<edge, vector<edge>, greater<>>> vi(n);
+        vector<priority_queue<edge, vector<edge>, greater<> > > vi(n);
         // fill the ordered nodes adjacency lists
         for (auto &e: edges1) {
             vi[e.u].emplace(e.u, e.v, e.w);
@@ -238,12 +240,14 @@ struct graph {
     }
 
     void writeMBToFile(bool approx = false) {
-        string curPath = "../MB_" + path;
-        if (approx) { curPath = "../MBApprox_" + path; }
+        string curPath = "output/MB_" + path;
+        if (approx) { curPath = "output/MBApprox_" + path; }
         ofstream ofs(curPath);
         ofs << n << '\n';
         for (auto &[p, w]: edgesMB) {
-            ofs << p.first << " " << p.second << " " << w << '\n';
+            if (p.first < p.second) {
+                ofs << p.first << " " << p.second << " " << w << '\n';
+            }
         }
         ofs.close();
     }
@@ -282,19 +286,40 @@ int main() {
 
     // bool approx = true;
 
-    // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    // graph G("Datasets/openflights-uniform.txt");
+    graph G("Datasets/USairport500-uniform.txt");
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     // graph G("Cifar_122.txt");
-    // G.getMB(approx);
+    // G.getMB(false);
     // G.writeMBToFile(approx);
-    // std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    //
-    // std::cout << "Time taken to build MB: " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() <<
-    //         " s" << std::endl;
 
-    graph G("Datasets/openflights-uniform.txt");
     set<edge> metric = G.getMBFast();
-    cout << "number of metric edges: " << metric.size() << '\n';
+    //
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    //
+    std::cout << "Time taken to build MB new method: " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).
+            count() <<
+            " s" << std::endl;
+
+    // cout << "number of metric edges: " << metric.size() << '\n';
+
+    // G.getMB(false);
+
+    // begin = std::chrono::steady_clock::now();
+
+    // end = std::chrono::steady_clock::now();
+    // std::cout << "Time taken to build MB old method: " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() <<
+    //     " s" << std::endl;
+    //
+    // G.writeMBToFile(false);
+
+    // graph G("Datasets/sbm/sbm_n=10_p1=05,p2=01.txt");
+
+
+    // ofstream ofs("output/MB_Datasets/USairport500-uniform-fast.txt");
+    // ofs << G.n << " " << metric.size() << std::endl;
     // for (auto &e: metric) {
-    //     cout << e.u << " " << e.v << " " << e.w << '\n';
-    //}
+    //     ofs << e.u << " " << e.v << " " << e.w << '\n';
+    // }
+    // ofs.close();
 }
