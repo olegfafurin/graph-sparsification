@@ -7,7 +7,8 @@
 #include <queue>
 #include <set>
 #include <iostream>
-#include "MBFast.h"
+#include "MBFastAlgorithm.h"
+#include "MBFastCommon.h"
 
 using namespace std;
 
@@ -17,48 +18,20 @@ set<edge> getMBFast(const graph &g, bool verbose);
 
 bool getMetricBFS(const graph &g, const edge &e);
 
-void MBFast::calculate(const graph &g, MetricBackbone &mb) const {
-    auto e = getMBFast(g, false);
+void MBFastAlgorithm::calculate(const graph &g, MetricBackbone &mb) const {
+    auto e = getMBFast(g, verbose);
     for (auto &[u,v,w]: e) {
         mb.edges[{min(u,v), max(u,v)}] = w;
     }
 }
 
-set<edge> getMBFirstStage(const graph &g) {
-    set<edge> edges;
-    for (int i = 0; i < g.n; i++) {
-        for (auto &e: g.nodes[i].edges) {
-            if (e.u < e.v) {
-                // we don't allow 0-loops
-                edges.insert({e.u, e.v, e.w});
-            }
-        }
-    }
-    set<edge> res;
-    for (auto &e: edges) {
-        bool take = true;
-        int u = e.u, v = e.v;
-        for (auto &x: g.nodes[u].edges) {
-            for (auto &y: g.nodes[v].edges) {
-                if (x.v == y.v && x.w + y.w < e.w) {
-                    take = false;
-                    goto loop_end;
-                }
-            }
-        }
-    loop_end:
-        if (take) {
-            res.insert({u, v, e.w});
-        }
-    }
-    return res;
-}
+
 
 set<edge> getMBFast(const graph &g, bool verbose = false) {
     set<edge> edges = getMBFirstStage(g);
     if (verbose) {
         cout << "base graph edge count: " << g.m << endl;
-        cout << "possibly metric edges count after step 1" << edges.size() << '\n';
+        cout << "possibly metric edges count after step 1: " << edges.size() << '\n';
     }
 
     vector<priority_queue<edge, vector<edge>, greater<> > > vi(g.n);

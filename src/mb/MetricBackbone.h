@@ -20,9 +20,13 @@ struct MetricBackbone {
 
     explicit MetricBackbone(const graph &g, MBCalculationAlgorithm &algorithm);
 
+    MetricBackbone(const MetricBackbone &other);
+
     void add_SPT(const int &root);
 
-    void write_to_file(const std::string &filename) const;
+    void writeToFile(const std::string &filename,
+                     const std::function<double(double)> &transform = [](double _w) { return _w; },
+                     bool write_header = true) const;
 
 private:
     void compute();

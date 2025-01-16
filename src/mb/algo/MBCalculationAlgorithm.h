@@ -6,7 +6,7 @@
 #define MBCALCULATIONALGORITHM_H
 
 #include "graph.h"
-#include "MetricBackbone.h"
+#include "mb/MetricBackbone.h"
 
 
 struct MBCalculationAlgorithm {

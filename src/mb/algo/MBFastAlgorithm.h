@@ -7,8 +7,12 @@
 #include "MBCalculationAlgorithm.h"
 
 
-struct MBFast : MBCalculationAlgorithm {
-    ~MBFast() override = default;
+struct MBFastAlgorithm : MBCalculationAlgorithm {
+    bool verbose;
+
+    explicit MBFastAlgorithm(bool verbose = false): verbose(verbose) {};
+
+    ~MBFastAlgorithm() override = default;
 
     void calculate(const graph &g, MetricBackbone &mb) const override;
 };

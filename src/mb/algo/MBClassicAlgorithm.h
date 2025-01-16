@@ -6,9 +6,12 @@
 #define MBCLASSICALGORITHM_H
 
 #include "MBCalculationAlgorithm.h"
-#include "MetricBackbone.h"
 
 struct MBClassicAlgorithm : MBCalculationAlgorithm {
+    bool verbose;
+
+    MBClassicAlgorithm(bool verbose = false);
+
     ~MBClassicAlgorithm() override = default;
 
     void calculate(const graph &g, MetricBackbone &mb) const override;
