@@ -12,8 +12,8 @@ using namespace std;
 typedef long long ll;
 
 
-void compare_time(const string &path) {
-    graph G(path);
+void compare_time(const string &graph_filename) {
+    graph G(graph_filename);
     cout << "#edges: " << G.m << '\n';
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     // G.getMB(false);
@@ -31,7 +31,7 @@ void compare_time(const string &path) {
 
     auto t_new = std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count();
 
-    // G = graph(path);
+    // G = graph(graph_filename);
     begin = std::chrono::steady_clock::now();
     // G.getMBFirstStageAndBFS();
     end = std::chrono::steady_clock::now();

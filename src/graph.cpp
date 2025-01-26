@@ -40,7 +40,7 @@ void graph::add_edge(int u, int v, double w) {
     nodes[v].edges.emplace_back(v, u, w);
 }
 
-void graph::getSPT(int s, std::vector<std::pair<int, double> > &parent,
+void graph::getSPTDijkstra(int s, std::vector<std::pair<int, double> > &parent,
                    const std::vector<node> &vertexEdges) const {
     vector<double> dist(n, 1e15);
     vector<bool> visited(n, false);
@@ -62,6 +62,26 @@ void graph::getSPT(int s, std::vector<std::pair<int, double> > &parent,
                 parent[e.v] = {e.u, e.w};
                 pq.emplace(dist[e.v], e.v);
             }
+    }
+}
+
+void graph::getSPTFordBellman(int s, std::vector<std::pair<int, double>> &parent, int max_steps) const {
+    vector<double> d(n, 1e15);
+    d[s] = 0;
+    for (int k = 0; k < max_steps; k++) {
+        bool changed = false;
+        for (int i = 0; i < n; i++) {
+            for (auto e: nodes[i].edges) {
+                if (d[e.v] > d[e.u] + e.w) {
+                    d[e.v] = d[e.u] + e.w;
+                    parent[e.v] = {e.u, e.w};
+                    changed = true;
+                }
+            }
+        }
+        if (!changed) {
+            break;
+        }
     }
 }
 

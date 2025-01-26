@@ -24,7 +24,7 @@ void MBFirstAndBFSAlgorithm::calculate(const graph &g, MetricBackbone &mb) const
     }
     for (int i = 0; i < g.n; ++i) {
         vector<pair<int, double> > parent(g.n, {-1, -1});
-        g.getSPT(i, parent, candidate_adj_list);
+        g.getSPTDijkstra(i, parent, candidate_adj_list);
         for (int u = 0; u < g.n; u++) {
             auto [v, w] = parent[u];
             if (v == -1) { continue; }

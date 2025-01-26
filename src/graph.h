@@ -49,7 +49,9 @@ struct graph {
 
     // void getMB(int n_roots);
 
-    void getSPT(int s, std::vector<std::pair<int, double> > &parent, const std::vector<node> &vertexEdges) const;
+    void getSPTDijkstra(int s, std::vector<std::pair<int, double> > &parent, const std::vector<node> &vertexEdges) const;
+
+    void getSPTFordBellman(int s, std::vector<std::pair<int, double> > &parent, int max_steps) const;
 
     void writeToFile(const std::string &filename, bool include_header);
 

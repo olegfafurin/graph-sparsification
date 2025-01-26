@@ -38,9 +38,15 @@ int main(int argc, char *argv[]) {
     G_proximity.writeToFile(filename_no_ext + "_w.txt", true);
     cout << "weighted proximity graph is constructed, constructing distance graph\n";
 
+    // return 0;
     graph G_distance = proximity_to_distance(G_proximity);
 
-    cout << "distance graph is constructed, constructing MB\n";
+    cout << "distance graph is constructed\n";
+
+    G_distance.writeToFile(filename_no_ext + "_d.txt", true);
+
+    return 0;
+    cout << "constructing distance graph MB\n";
 
     MetricBackbone mb_distance(G_distance, alg_classic);
 

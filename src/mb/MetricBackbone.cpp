@@ -20,7 +20,7 @@ MetricBackbone::MetricBackbone(const MetricBackbone &other): base_graph(other.ba
 
 void MetricBackbone::add_SPT(const int &root) {
     std::vector<std::pair<int, double> > parent(base_graph.n, {-1, -1});
-    base_graph.getSPT(root, parent, base_graph.nodes);
+    base_graph.getSPTDijkstra(root, parent, base_graph.nodes);
     for (int u = 0; u < base_graph.n; u++) {
         auto [v, w] = parent[u];
         if (v == -1) { continue; }
