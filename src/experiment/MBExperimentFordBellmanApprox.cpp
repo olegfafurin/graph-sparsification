@@ -2,8 +2,6 @@
 #include <iostream>
 
 #include "graph.h"
-#include "mb/algo/MBClassicAlgorithm.h"
-#include "mb/algo/MBFastAlgorithm.h"
 #include "mb/algo/MBFirstAndBFSAlgorithm.h"
 #include "mb/algo/MBApproximationFordBellmanAlgorithm.h"
 #include "mb/MetricBackbone.h"
@@ -21,7 +19,7 @@ int main(int argc, char* argv[]) {
     cout << "reading graph: " << graph_filename << '\n';
 
     graph G(graph_filename);
-    auto fb_algo = MBApproximationFordBellmanAlgorithm();
+    auto fb_algo = MBApproximationFordBellmanAlgorithm([](int n) { return static_cast<int>(log(n)); });
     MBCalculationAlgorithm &algorithm{fb_algo};
 
     MetricBackbone mb_original(G, algorithm);

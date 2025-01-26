@@ -5,19 +5,10 @@
 #include "GraphTransformations.h"
 #include <set>
 
-// graph contact_to_proximity(const graph &contact_graph) {
-//     graph g(contact_graph);
-//     g.path += "proximity";
-//
-//
-// }
-
-
 graph contact_to_proximity(const graph& g_contact) {
     int N = g_contact.n;
     graph g_proximity(N);
 
-    // TODO change to vector of sets
     std::vector<std::vector<int>> neighbors(N);
 
     graph G_contact_copy = g_contact;

@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include "graph.h"
-#include "mb/algo/MBClassicAlgorithm.h"
 #include "mb/algo/MBFastAlgorithm.h"
 #include "mb/algo/MBFirstAndBFSAlgorithm.h"
 #include "mb/MetricBackbone.h"
