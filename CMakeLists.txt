@@ -55,8 +55,21 @@ add_executable(compare-time
         src/mb/algo/MBFastAlgorithm.cpp
         src/mb/algo/MBFirstAndBFSAlgorithm.h
         src/mb/algo/MBFirstAndBFSAlgorithm.cpp
-#        src/mb/algo/MBApproximationAlgorithm.h
-#        src/mb/algo/MBApproximationAlgorithm.cpp
+        src/mb/algo/MBApproximationDijkstraAlgorithm.h
+        src/mb/algo/MBApproximationDijkstraAlgorithm.cpp
+        src/mb/algo/MBApproximationFordBellmanAlgorithm.cpp
+        src/mb/algo/MBApproximationFordBellmanAlgorithm.h
+)
+
+add_executable(ford-bellman
+        src/experiment/MBExperimentFordBellmanApprox.cpp
+        src/graph.h
+        src/graph.cpp
+        src/mb/MetricBackbone.h
+        src/mb/MetricBackbone.cpp
+        src/mb/algo/MBCalculationAlgorithm.h
+        src/mb/algo/MBApproximationFordBellmanAlgorithm.cpp
+        src/mb/algo/MBApproximationFordBellmanAlgorithm.h
 )
 
 add_executable(num-test
@@ -90,6 +103,7 @@ target_include_directories(first-and-bfs PRIVATE src)
 target_include_directories(compare-time PRIVATE src)
 target_include_directories(graph-transform-test PRIVATE src)
 target_include_directories(prepare-approx PRIVATE src)
+target_include_directories(ford-bellman PRIVATE src)
 
 
 
